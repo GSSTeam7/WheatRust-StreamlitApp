@@ -1,0 +1,9 @@
+{
+ "healthy": 0,
+ "leaf rust": 1,
+ "powdery mildew": 2,
+ "seedlings": 3,
+ "septoria": 4,
+ "stem rust": 5,
+ "yellow rust": 6
+}
