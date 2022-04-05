@@ -93,5 +93,5 @@ if uploaded_file is not None:
     image = PIL.Image.open(uploaded_file).resize((512,512))
     img = np.array(image)
     wheat_type,confidence = m.predict(img)
-    st.write(f"I think this is **{wheat_type}**(confidence: **{round(float(confidence),2)*100}%**)")
+    st.write(f"I think this is **{wheat_type}**(confidence: **{round(float(confidence),4)*100}%**)")
     st.image(image, caption='Uploaded Image.', use_column_width=True)
