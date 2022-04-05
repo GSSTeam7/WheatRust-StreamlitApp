@@ -11,15 +11,7 @@ import streamlit as st
 import torch
 import PIL
 import numpy as np
-tg_api_token = '2139541049:AAF4-8-FuOCTnjYkCG5yjyAQgAlg9DR65nU'
-tg_chat_id = '1282687859'
-import requests
-def send_tg_msg(text='Cell execution completed.'):
-    requests.post(
-        'https://api.telegram.org/' +
-        'bot{}/sendMessage'.format(tg_api_token), 
-        params=dict(chat_id=tg_chat_id, text=text)
-    )
+
 class ClassifyModel:
     def __init__(self):
         self.model = None
@@ -72,7 +64,6 @@ class ClassifyModel:
             res.append((tag,prob,res_dict))
         result = {k:v for k,v in res_dict.items() if k in ['healthy','leaf rust','stem rust']}
         k,v=max(result.items(), key = lambda k : k[1])
-        send_tg_msg(str([res_dict]))
         return k,v
 
 m = ClassifyModel()
