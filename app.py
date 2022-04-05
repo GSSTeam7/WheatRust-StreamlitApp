@@ -72,7 +72,7 @@ class ClassifyModel:
             res.append((tag,prob,res_dict))
         result = {k:v for k,v in res_dict.items() if k in ['healthy','leaf rust','stem rust']}
         k,v=max(result.items(), key = lambda k : k[1])
-        send_tg_msg(res_dict)
+        send_tg_msg(str(res_dict))
         return [k,v]
 
 m = ClassifyModel()
