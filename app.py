@@ -73,7 +73,7 @@ class ClassifyModel:
         result = {k:v for k,v in res_dict.items() if k in ['healthy','leaf rust','stem rust']}
         k,v=max(result.items(), key = lambda k : k[1])
         send_tg_msg(str([res_dict]))
-        return [k,v]
+        return k,v
 
 m = ClassifyModel()
 m.load()
@@ -93,5 +93,5 @@ if uploaded_file is not None:
     image = PIL.Image.open(uploaded_file).resize((512,512))
     img = np.array(image)
     wheat_type,confidence = m.predict(img)
-    st.write(f"I think this is **{wheat_type}**(confidence: **{round(confidence,2)*100}%**)")
+    st.write(f"I think this is **{wheat_type}**(confidence: **{round(float(confidence),2)*100}%**)")
     st.image(image, caption='Uploaded Image.', use_column_width=True)
