@@ -61,7 +61,7 @@ class ClassifyModel:
             logging.debug(f"all results: {res_dict}")
             logging.debug(f"prob: {prob}")
             logging.debug(f"result: {tag}")
-            res.append((tag,prob,res_dict
+            res.append((tag,prob,res_dict))
         result = {k:v for k,v in res_dict.items() if k in ['healthy','leaf rust','stem rust']}
         rem = sum(res_dict.values()) - sum(result.values())
         k,v=max(result.items(), key = lambda k : k[1])
