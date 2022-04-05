@@ -61,8 +61,11 @@ class ClassifyModel:
             logging.debug(f"all results: {res_dict}")
             logging.debug(f"prob: {prob}")
             logging.debug(f"result: {tag}")
-            res.append((tag,prob,res_dict))
-        return res
+            res.append((tag,prob,res_dict
+        result = {k:v for k,v in res_dict.items() if k in ['healthy','leaf rust','stem rust']}
+        rem = sum(res_dict.values()) - sum(result.values())
+        k,v=max(result.items(), key = lambda k : k[1])
+        return [k,v+rem]
 
 m = ClassifyModel()
 m.load()
@@ -79,8 +82,8 @@ st.write("Upload an image.")
 uploaded_file = st.file_uploader("")
 
 if uploaded_file is not None:
-    image = PIL.Image.open(uploaded_file)
+    image = PIL.Image.open(uploaded_file).resize((512,512))
     img = np.array(image)
-    result = m.predict(img)
-    st.write(f"I think this is **{result[0][0][0]}**(confidence: **{round(result[0][1][0],2)*100}%**)")
+    wheat_type,confidence = m.predict(img)
+    st.write(f"I think this is **{wheat_type}**(confidence: **{round(confidence,2)*100}%**)")
     st.image(image, caption='Uploaded Image.', use_column_width=True)
